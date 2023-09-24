@@ -1,0 +1,23 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings
+
+  db:
+    image: postgres:14
+    environment:
+      - POSTGRES_DB=uploaderdb
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=12345
+
+  redis:
+    image: redis:latest
